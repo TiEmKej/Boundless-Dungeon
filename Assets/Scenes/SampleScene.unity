@@ -149,6 +149,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16b439f0b2a5e148acea3fd33420a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRoomSize: 10
+  minRoomSize: 4
+  maxRooms: 20
+  minRooms: 10
+  floorTile: {fileID: 11400000, guid: 1a95f09679ef95f46816e197026cc6db, type: 2}
+  floorMap: {fileID: 1123238104}
+  gameSeed: 0
+  mapSize: 30
 --- !u!4 &458590587
 Transform:
   m_ObjectHideFlags: 0
@@ -156,6 +164,51 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458590585}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &458990618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 458990620}
+  - component: {fileID: 458990619}
+  m_Layer: 0
+  m_Name: GameSeed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &458990619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458990618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc21ebcef395914597239092c86e31a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 0
+--- !u!4 &458990620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458990618}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -281,7 +334,7 @@ Transform:
   m_GameObject: {fileID: 798520018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.32213, y: 46.309612, z: 0.44467238}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -460,3 +513,4 @@ SceneRoots:
   - {fileID: 1391641741}
   - {fileID: 458590587}
   - {fileID: 798520019}
+  - {fileID: 458990620}

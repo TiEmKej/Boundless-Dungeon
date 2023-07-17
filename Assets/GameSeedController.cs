@@ -6,7 +6,7 @@ public class GameSeedController : MonoBehaviour
 {
     public int seed = 0;
 
-    private void Start()
+    private void Awake()
     {
         if (seed == 0)
         {
