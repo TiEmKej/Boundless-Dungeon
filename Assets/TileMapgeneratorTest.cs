@@ -15,17 +15,43 @@ public class TileMapgeneratorTest : MonoBehaviour
     public TileBase floorTile;
     public Tilemap floorMap;
     public Vector2Int[,] roomsList;
+    public int roomsNumber;
 
     // Start is called before the first frame update
     void Start()
     {
-        PickRoomPosition(); 
+        PickRoomPosition();
+        GenerateCorridor();
+    }
+
+    private void GenerateCorridor()
+    {
+        Vector2Int[,] closestRoomPairs = new Vector2Int[roomsNumber + 1, 2];
+        for (int i = 1; i < roomsNumber; i++)
+        {
+            double distance = double.PositiveInfinity;
+            for (int j = 1; j < roomsNumber; j++)
+            {
+                double newDistance = Math.Sqrt(Math.Pow((roomsList[i - 1, 0].x - roomsList[j - 1, 0].x), 2) + Math.Pow((roomsList[i - 1, 0].y - roomsList[j - 1, 0].y), 2));
+                if (newDistance == 0)
+                {
+                    continue;
+                }
+                else if (newDistance < distance)
+                {
+                    distance = newDistance;
+                    closestRoomPairs[i - 1, 0] = roomsList[i - 1,0];
+                    closestRoomPairs[i - 1, 1] = roomsList[j - 1, 0];
+                }
+            }
+            Debug.Log(closestRoomPairs[i-1,0]+ " | " + closestRoomPairs[i - 1, 1]);
+        }
     }
 
     private void PickRoomPosition()
     {
         //Pick how many rooms will be crated
-        int roomsNumber = UnityEngine.Random.Range(minRooms, maxRooms);
+        roomsNumber = UnityEngine.Random.Range(minRooms, maxRooms);
         //Define how many rooms will be in array
         roomsList = new Vector2Int[roomsNumber + 1, 2];
         //How many rooms are created yet
@@ -72,14 +98,16 @@ public class TileMapgeneratorTest : MonoBehaviour
         {
             for (int j = roomCentralLocation.y - ((roomDimension.y + minDistanceToRoom * 2) / 2); j < roomCentralLocation.y + ((roomDimension.y + minDistanceToRoom * 2) / 2); j++)
             {
-
+                // Check if there is tile under cords
                 if (floorMap.HasTile(new Vector3Int(i,j,0)))
                 {
+                    // if yes, generate new position
                     Debug.Log("OVERLAP");
                     return true;
                 }
             }
         }
+        // if no, place the room at the generated cords
         return false;
     }
 
@@ -89,7 +117,8 @@ public class TileMapgeneratorTest : MonoBehaviour
         for (int i = roomCentralLocation.x - (roomDimension.x / 2); i < roomCentralLocation.x + (roomDimension.x / 2); i++)
         {
             for (int j = roomCentralLocation.y - (roomDimension.y / 2); j < roomCentralLocation.y + (roomDimension.y / 2); j++)
-            {    
+            {   
+                // Set the floor in genereted position
                 Vector3Int tilePosition = new Vector3Int(i, j, 0);
                 floorMap.SetTile(tilePosition, floorTile);
             }

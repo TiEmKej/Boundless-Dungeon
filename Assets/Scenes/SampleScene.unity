@@ -149,10 +149,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16b439f0b2a5e148acea3fd33420a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRoomSize: 10
-  minRoomSize: 4
-  maxRooms: 20
-  minRooms: 10
+  maxRoomSize: 12
+  minRoomSize: 6
+  maxRooms: 30
+  minRooms: 20
+  minDistanceToRoom: 5
+  mapSize: 50
   floorTile: {fileID: 11400000, guid: 1a95f09679ef95f46816e197026cc6db, type: 2}
   floorMap: {fileID: 1123238104}
 --- !u!4 &458590587
