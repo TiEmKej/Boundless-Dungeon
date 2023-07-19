@@ -157,6 +157,7 @@ MonoBehaviour:
   mapSize: 50
   floorTile: {fileID: 11400000, guid: 1a95f09679ef95f46816e197026cc6db, type: 2}
   floorMap: {fileID: 1123238104}
+  roomsNumber: 0
 --- !u!4 &458590587
 Transform:
   m_ObjectHideFlags: 0

@@ -15,37 +15,15 @@ public class TileMapgeneratorTest : MonoBehaviour
     public TileBase floorTile;
     public Tilemap floorMap;
     public Vector2Int[,] roomsList;
+    public Vector2Int[,] closestRoomPairs;
     public int roomsNumber;
 
     // Start is called before the first frame update
     void Start()
     {
         PickRoomPosition();
-        GenerateCorridor();
-    }
-
-    private void GenerateCorridor()
-    {
-        Vector2Int[,] closestRoomPairs = new Vector2Int[roomsNumber + 1, 2];
-        for (int i = 1; i < roomsNumber; i++)
-        {
-            double distance = double.PositiveInfinity;
-            for (int j = 1; j < roomsNumber; j++)
-            {
-                double newDistance = Math.Sqrt(Math.Pow((roomsList[i - 1, 0].x - roomsList[j - 1, 0].x), 2) + Math.Pow((roomsList[i - 1, 0].y - roomsList[j - 1, 0].y), 2));
-                if (newDistance == 0)
-                {
-                    continue;
-                }
-                else if (newDistance < distance)
-                {
-                    distance = newDistance;
-                    closestRoomPairs[i - 1, 0] = roomsList[i - 1,0];
-                    closestRoomPairs[i - 1, 1] = roomsList[j - 1, 0];
-                }
-            }
-            Debug.Log(closestRoomPairs[i-1,0]+ " | " + closestRoomPairs[i - 1, 1]);
-        }
+        FindCloseRooms();
+        GenerateCoridors();
     }
 
     private void PickRoomPosition()
@@ -122,6 +100,70 @@ public class TileMapgeneratorTest : MonoBehaviour
                 Vector3Int tilePosition = new Vector3Int(i, j, 0);
                 floorMap.SetTile(tilePosition, floorTile);
             }
+        }
+    }
+
+    private void FindCloseRooms()
+    {
+        // Create a set of closest rooms
+        closestRoomPairs = new Vector2Int[roomsNumber + 1, 2];
+        for (int i = 1; i < roomsNumber; i++)
+        {
+            double distance = double.PositiveInfinity;
+            for (int j = 1; j < roomsNumber; j++)
+            {
+                // calculate distance from one room to everyother one by one
+                double newDistance = Math.Sqrt(Math.Pow((roomsList[i - 1, 0].x - roomsList[j - 1, 0].x), 2) + Math.Pow((roomsList[i - 1, 0].y - roomsList[j - 1, 0].y), 2));
+                // if it's calculating distance between the same room go to next step
+                if (newDistance == 0)
+                {
+                    continue;
+                }
+                // if new distance is smaller than old, than set new closest room
+                else if (newDistance < distance)
+                {
+                    distance = newDistance;
+                    closestRoomPairs[i - 1, 0] = roomsList[i - 1, 0];
+                    closestRoomPairs[i - 1, 1] = roomsList[j - 1, 0];
+                }
+            }
+            Debug.Log(closestRoomPairs[i - 1, 0] + " | " + closestRoomPairs[i - 1, 1]);
+        }
+    }
+
+    private void GenerateCoridors()
+    {
+        for (int i = 0; i <= roomsNumber; i++)
+        {
+            int x1 = closestRoomPairs[i, 0].x;
+            int x2 = closestRoomPairs[i, 1].x;
+            int y1 = closestRoomPairs[i, 0].y;
+            int y2 = closestRoomPairs[i, 1].y;
+            while (x1 != x2) 
+            {
+                floorMap.SetTile(new Vector3Int(x1,y1,0), floorTile);
+                if(x1 < x2)
+                {
+                    x1++;
+                }
+                else
+                {
+                    x1--;
+                }
+            }
+            while (y1 != y2)
+            {
+                floorMap.SetTile(new Vector3Int(x1, y1, 0), floorTile);
+                if (y1 < y2)
+                {
+                    y1++;
+                }
+                else
+                {
+                    y1--;
+                }
+            }
+
         }
     }
 }
