@@ -133,7 +133,7 @@ public class TileMapgeneratorTest : MonoBehaviour
 
     private void GenerateCoridors()
     {
-        for (int i = 0; i <= roomsNumber; i++)
+        for (int i = 0; i <= roomsNumber+1; i++)
         {
             int x1 = closestRoomPairs[i, 0].x;
             int x2 = closestRoomPairs[i, 1].x;
